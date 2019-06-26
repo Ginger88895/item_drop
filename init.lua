@@ -332,15 +332,11 @@ if legacy_setting_getbool("item_drop.enable_item_drop", "enable_item_drop", true
 and not minetest.settings:get_bool("creative_mode") then
 	function minetest.handle_node_drops(pos, drops)
 		for i = 1,#drops do
-			local item = drops[i]
+			local item = ItemStack(drops[i])
 			local count, name
-			if type(item) == "string" then
-				count = 1
-				name = item
-			else
-				count = item:get_count()
-				name = item:get_name()
-			end
+
+			count = item:get_count()
+			name = item:get_name()
 
 			-- Sometimes nothing should be dropped
 			if name == ""
